@@ -60,7 +60,18 @@ $routes->get('/pedagang/edit/(:num)', 'PedagangController::edit/$1');
 $routes->post('/pedagang/update/(:num)', 'PedagangController::update/$1');
 $routes->get('/pedagang/delete/(:num)', 'PedagangController::delete/$1');
 
+
+$routes->group('sertifikat', function ($routes) {
+    $routes->get('/', 'SertifikatController::index');
+    $routes->get('create', 'SertifikatController::create');
+    $routes->post('store', 'SertifikatController::store');
+    $routes->get('edit/(:num)', 'SertifikatController::edit/$1');
+    $routes->post('update/(:num)', 'SertifikatController::update/$1');
+    $routes->get('delete/(:num)', 'SertifikatController::delete/$1');
+});
+
 /*
+
  * --------------------------------------------------------------------
  * Additional Routing
  * --------------------------------------------------------------------

@@ -12,8 +12,7 @@ class PedagangController extends BaseController
     public function index()
     {
         $model = new Pedagang();
-        $data['pedagang'] = $model->findAll();
-
+        $data['pedagang'] = $model->getPasar();
         return view('pedagang/index', $data);
     }
 
@@ -30,12 +29,12 @@ class PedagangController extends BaseController
     {
         $model = new Pedagang();
         $foto = $this->request->getFile('foto');
-        if ($foto->isValid() && !$foto->hasMoved()) {
+        if (!$foto->hasMoved()) {
             // Menghasilkan nama unik untuk file
-            $namaFoto = $foto->getRandomName();
-
+            $namaFoto = $foto->getName();
+            // $filepath = WRITEPATH . 'uploads/' . $foto->store();
             // Memindahkan file ke folder upload
-            $foto->move(WRITEPATH . 'public/uploads', $namaFoto);
+            $foto->move(ROOTPATH . 'public/uploads', $namaFoto, true);
             // Menyimpan nama file ke dalam database
         }
 
@@ -57,35 +56,71 @@ class PedagangController extends BaseController
 
     public function edit($id)
     {
-        $model = new Pedagang();
-        $data['pedagang'] = $model->find($id);
 
+        $pedagangModel = new Pedagang();
+        $pasarModel = new Pasar();
+        $klasfikasiModel = new Klasifikasi();
+        $data['pedagang'] = $pedagangModel->find($id);
+        $id_pasar = $data['pedagang']['id_pasar'];
+        $id_klasifikasi = $data['pedagang']['id_klasifikasi'];
+        $data['pedagang'] = $pedagangModel->getByIdPasar($id_pasar);
+        $data['nm_klasifikasi'] = $pedagangModel->getByIdKlasifikasi($id_klasifikasi);
+        $data['pasar'] = $pasarModel->findAll();
+        $data['klasifikasi'] = $klasfikasiModel->findAll();
+
+        // dd($data['nm_klasifikasi']);
         return view('pedagang/edit', $data);
     }
 
     public function update($id)
     {
         $model = new Pedagang();
-
-        $data = [
-            'id_pasar' => $this->request->getPost('id_pasar'),
-            'id_klasifikasi' => $this->request->getPost('id_klasifikasi'),
-            'foto' => $this->request->getPost('foto'),
-            'nama_pedagang' => $this->request->getPost('nama_pedagang'),
-            'jk' => $this->request->getPost('jk'),
-            'no_hp' => $this->request->getPost('no_hp'),
-            'alamat' => $this->request->getPost('alamat'),
-            'jenis_usaha' => $this->request->getPost('jenis_usaha')
-        ];
-
+        $pedagang = $model->find($id);
+        $foto = $this->request->getFile('foto');
+        if ($foto->isValid() && !$foto->hasMoved()) {
+            // Menghapus FOto Lama Jika ada 
+            if ($model->foto == NULL) {
+                unlink(ROOTPATH . 'public/uploads/' . $pedagang['foto']);
+            }
+            $namaFoto = $foto->getName();
+            //     // Memindahkan file ke folder upload
+            $foto->move(ROOTPATH . 'public/uploads', $namaFoto);
+            $data = [
+                'id_pasar' => $this->request->getPost('id_pasar'),
+                'id_klasifikasi' => $this->request->getPost('id_klasifikasi'),
+                'foto' => $namaFoto,
+                'nama_pedagang' => $this->request->getPost('nama_pedagang'),
+                'jk' => $this->request->getPost('jk'),
+                'no_hp' => $this->request->getPost('no_hp'),
+                'alamat' => $this->request->getPost('alamat'),
+                'jenis_usaha' => $this->request->getPost('jenis_usaha')
+            ];
+        } else {
+            $ft = $pedagang['foto'];
+            $data = [
+                'id_pasar' => $this->request->getPost('id_pasar'),
+                'id_klasifikasi' => $this->request->getPost('id_klasifikasi'),
+                'foto' => $ft,
+                'nama_pedagang' => $this->request->getPost('nama_pedagang'),
+                'jk' => $this->request->getPost('jk'),
+                'no_hp' => $this->request->getPost('no_hp'),
+                'alamat' => $this->request->getPost('alamat'),
+                'jenis_usaha' => $this->request->getPost('jenis_usaha')
+            ];
+        }
         $model->update($id, $data);
-
         return redirect()->to('/pedagang');
     }
 
     public function delete($id)
     {
         $model = new Pedagang();
+        $pedagang = $model->find($id);
+
+        // Menghapus foto jika ada 
+        if ($pedagang['foto'] != null) {
+            unlink(ROOTPATH . 'public/uploads/' . $pedagang['foto']);
+        }
         $model->delete($id);
 
         return redirect()->to('/pedagang');
