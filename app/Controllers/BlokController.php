@@ -11,13 +11,9 @@ class BlokController extends BaseController
     {
         $model = new Blok();
         $data['blok'] = $model->findAll();
+        $data['menu'] = "blok";
 
         return view('blok/index', $data);
-    }
-
-    public function create()
-    {
-        return view('blok/create');
     }
 
     public function store()
@@ -41,6 +37,8 @@ class BlokController extends BaseController
     {
         $model = new Blok();
         $data['blok'] = $model->find($id_blok);
+        $data['menu'] = "blok";
+
 
         return view('blok/edit', $data);
     }

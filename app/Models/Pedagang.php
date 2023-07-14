@@ -13,6 +13,10 @@ class Pedagang extends Model
 
     protected $allowedFields    = ['id_pasar', 'id_klasifikasi', 'foto', 'nama_pedagang', 'jk', 'no_hp', 'alamat', 'jenis_usaha'];
 
+    public function getCount()
+    {
+        return $this->countAll();
+    }
     public function getPasar()
     {
         return $this->db->table('Pedagang')

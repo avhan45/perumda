@@ -12,8 +12,13 @@ class SertifikatController extends BaseController
     public function index()
     {
         $sertifikatModel = new Sertifikat();
-        // $sertfikat = $sertifikatModel->findAll();
         $data['sertifikat'] = $sertifikatModel->getPedagang();
+        $pedagang = new Pedagang();
+        $blok = new Blok();
+        $data['pedagang'] = $pedagang->findAll();
+        $data['blok'] = $blok->findAll();
+        $data['menu'] = "sertifikat";
+
         return view('sertifikat/index', $data);
     }
 
@@ -54,6 +59,8 @@ class SertifikatController extends BaseController
         $data['bloks'] = $blok->findAll();
         $data['pedagang'] = $sertifikatModel->getPedagangById($id_pedagang);
         $data['blok'] = $sertifikatModel->getBlokById($id_blok);
+        $data['menu'] = "sertifikat";
+
         return view('sertifikat/edit', $data);
     }
 

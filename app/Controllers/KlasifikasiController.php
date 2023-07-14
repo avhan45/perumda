@@ -11,14 +11,12 @@ class KlasifikasiController extends BaseController
     {
         $model = new Klasifikasi();
         $data['klasifikasi'] = $model->findAll();
+        $data['menu'] = "klasifikasi";
+
 
         return view('klasifikasi/index', $data);
     }
 
-    public function create()
-    {
-        return view('klasifikasi/create');
-    }
 
     public function store()
     {
@@ -37,6 +35,8 @@ class KlasifikasiController extends BaseController
     {
         $model = new Klasifikasi();
         $data['klasifikasi'] = $model->find($id_klasifikasi);
+        $data['menu'] = "klasifikasi";
+
 
         return view('klasifikasi/edit', $data);
     }

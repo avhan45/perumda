@@ -12,6 +12,10 @@ class Sertifikat extends Model
     protected $useAutoIncrement = true;
     protected $allowedFields    = ['id_pedagang', 'id_blok', 'sertifikat', 'keterangan'];
 
+    public function getCount()
+    {
+        return $this->countAll();
+    }
     public function getPedagang()
     {
         return $this->db->table('Sertifikat')

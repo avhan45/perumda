@@ -12,7 +12,13 @@ class PedagangController extends BaseController
     public function index()
     {
         $model = new Pedagang();
+        $klasifikasi = new Klasifikasi();
+        $pasar = new Pasar();
         $data['pedagang'] = $model->getPasar();
+        $data['pasar'] = $pasar->findAll();
+        $data['klasifikasi'] = $klasifikasi->findAll();
+        $data['menu'] = "pedagang";
+
         return view('pedagang/index', $data);
     }
 
@@ -29,7 +35,7 @@ class PedagangController extends BaseController
     {
         $model = new Pedagang();
         $foto = $this->request->getFile('foto');
-        if (!$foto->hasMoved()) {
+        if ($foto->isValid() && !$foto->hasMoved()) {
             // Menghasilkan nama unik untuk file
             $namaFoto = $foto->getName();
             // $filepath = WRITEPATH . 'uploads/' . $foto->store();
@@ -67,6 +73,8 @@ class PedagangController extends BaseController
         $data['nm_klasifikasi'] = $pedagangModel->getByIdKlasifikasi($id_klasifikasi);
         $data['pasar'] = $pasarModel->findAll();
         $data['klasifikasi'] = $klasfikasiModel->findAll();
+        $data['menu'] = "pedagang";
+
 
         // dd($data['nm_klasifikasi']);
         return view('pedagang/edit', $data);

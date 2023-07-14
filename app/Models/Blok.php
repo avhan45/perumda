@@ -10,4 +10,9 @@ class Blok extends Model
     protected $table            = 'Blok';
     protected $primaryKey       = 'id_blok';
     protected $allowedFields    = ['no_blok', 'blok', 'ukuran'];
+
+    public function getCount()
+    {
+        return $this->countAll();
+    }
 }

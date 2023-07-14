@@ -29,7 +29,8 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'PasarController::index');
+$routes->get('/dashboard', 'Home::index');
+// $routes->get('/', 'PasarController::index');
 $routes->get('/pasar', 'PasarController::index');
 $routes->get('/pasar/create', 'PasarController::create');
 $routes->post('/pasar/store', 'PasarController::store');

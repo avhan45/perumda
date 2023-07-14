@@ -11,13 +11,11 @@ class PasarController extends BaseController
     {
         $model = new Pasar();
         $data['pasar'] = $model->findAll();
+        $data['menu'] = "pasar";
+
         return view('pasar/index', $data);
     }
 
-    public function create()
-    {
-        return view('pasar/create');
-    }
 
     public function store()
     {
@@ -34,10 +32,11 @@ class PasarController extends BaseController
         return redirect()->to('/pasar');
     }
 
-    public function edit($no_pasar)
+    public function edit($id)
     {
         $model = new Pasar();
-        $data['pasar'] = $model->find($no_pasar);
+        $data['pasar'] = $model->find($id);
+        $data['menu'] = "pasar";
 
         return view('pasar/edit', $data);
     }
@@ -46,7 +45,7 @@ class PasarController extends BaseController
     {
         $model = new Pasar();
 
-        $no_pasar = $this->request->getPost('no_pasar');
+        $id_pasar = $this->request->getPost('id_pasar');
 
         $data = [
             'no_pasar' => $this->request->getPost('no_pasar'),
@@ -54,7 +53,7 @@ class PasarController extends BaseController
             'alamat' => $this->request->getPost('alamat')
         ];
 
-        $model->update($no_pasar, $data);
+        $model->update($id_pasar, $data);
 
         return redirect()->to('/pasar');
     }

@@ -9,4 +9,9 @@ class Pasar extends Model
     protected $table            = 'Pasar';
     protected $primaryKey       = 'id_pasar';
     protected $allowedFields    = ['no_pasar', 'nama_pasar', 'alamat'];
+
+    public function getCount()
+    {
+        return $this->countAll();
+    }
 }
