@@ -35,6 +35,8 @@ $routes->get('/laporan/pdf', 'LaporanController::laporanPDF');
 $routes->get('/laporan/xl', 'LaporanController::laporanXl');
 $routes->get('/', 'Home::login');
 $routes->get('/pasar', 'PasarController::index');
+$routes->get('/pasar/export', 'PasarController::export');
+$routes->get('/pasar/import', 'PasarController::importData');
 $routes->get('/pasar/create', 'PasarController::create');
 $routes->post('/pasar/store', 'PasarController::store');
 $routes->get('/pasar/edit/(:any)', 'PasarController::edit/$1');
