@@ -21,7 +21,7 @@
     <div class="card ">
         <div class="card-header">
             <!-- <a href="/pasar/create/" class="btn btn-primary"> <i class="fas fa-plus"></i> Tambah Data Pasar </a> -->
-            <a href="" type="button" class="btn btn-success">
+            <a href="laporan/xl" type="button" class="btn btn-success">
                 Export Excel
             </a>
             <a href="laporan/pdf" type="button" class="btn btn-danger" target="_blank">

@@ -32,6 +32,7 @@ $routes->set404Override();
 $routes->get('/dashboard', 'Home::index');
 $routes->get('/laporan', 'LaporanController::index');
 $routes->get('/laporan/pdf', 'LaporanController::laporanPDF');
+$routes->get('/laporan/xl', 'LaporanController::laporanXl');
 $routes->get('/', 'Home::login');
 $routes->get('/pasar', 'PasarController::index');
 $routes->get('/pasar/create', 'PasarController::create');
