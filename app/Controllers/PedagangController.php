@@ -50,6 +50,7 @@ class PedagangController extends BaseController
             'foto' => $namaFoto,
             'nama_pedagang' => $this->request->getPost('nama_pedagang'),
             'jk' => $this->request->getPost('jk'),
+            'agama' => $this->request->getPost('agama'),
             'no_hp' => $this->request->getPost('no_hp'),
             'alamat' => $this->request->getPost('alamat'),
             'jenis_usaha' => $this->request->getPost('jenis_usaha')
@@ -99,6 +100,7 @@ class PedagangController extends BaseController
                 'foto' => $namaFoto,
                 'nama_pedagang' => $this->request->getPost('nama_pedagang'),
                 'jk' => $this->request->getPost('jk'),
+                'agama' => $this->request->getPost('agama'),
                 'no_hp' => $this->request->getPost('no_hp'),
                 'alamat' => $this->request->getPost('alamat'),
                 'jenis_usaha' => $this->request->getPost('jenis_usaha')
@@ -111,6 +113,7 @@ class PedagangController extends BaseController
                 'foto' => $ft,
                 'nama_pedagang' => $this->request->getPost('nama_pedagang'),
                 'jk' => $this->request->getPost('jk'),
+                'agama' => $this->request->getPost('agama'),
                 'no_hp' => $this->request->getPost('no_hp'),
                 'alamat' => $this->request->getPost('alamat'),
                 'jenis_usaha' => $this->request->getPost('jenis_usaha')

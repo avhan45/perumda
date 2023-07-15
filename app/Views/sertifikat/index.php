@@ -46,7 +46,13 @@
                             <td><?= $sert->nama_pedagang; ?></td>
                             <td><?= $sert->blok; ?></td>
                             <td><?= $sert->sertifikat; ?></td>
-                            <td><?= $sert->keterangan; ?></td>
+                            <td>
+                                <?php if ($sert->keterangan == 'Aktif') : ?>
+                                    <span class="badge badge-success"><?= $sert->keterangan ?></span>
+                                <?php else : ?>
+                                    <span class="badge badge-danger"><?= $sert->keterangan ?></span>
+                                <?php endif; ?>
+                            </td>
                             <td>
                                 <a class="btn btn-sm btn-warning" href="/sertifikat/edit/<?= $sert->id_sertifikat ?>"><i class="fas fa-edit"></i></a>
                                 <a class="btn btn-sm btn-danger" href="/sertifikat/delete/<?= $sert->id_sertifikat ?>"><i class="fas fa-trash"></i></a>
@@ -95,7 +101,11 @@
                         <input class="form-control" type="text" name="sertifikat" id="sertifikat" required>
 
                         <label class="form-label" for="keterangan">Keterangan:</label>
-                        <textarea class="form-control" name="keterangan" id="keterangan" required></textarea>
+                        <select name="keterangan" id="keterangan" class="form-control">
+                            <option value="Aktif">Aktif</option>
+                            <option value="Tidak Aktif">Tidak Aktif</option>
+
+                        </select>
 
                     </div>
 

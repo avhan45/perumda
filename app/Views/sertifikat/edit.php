@@ -47,8 +47,12 @@
                         <label for="sertifikat">Sertifikat:</label>
                         <input class="form-control" type="text" name="sertifikat" id="sertifikat" value="<?= $pedagang['sertifikat']; ?>"><br>
 
-                        <label for="keterangan">Keterangan:</label>
-                        <textarea class="form-control" name="keterangan" id="keterangan"><?= $pedagang['keterangan']; ?></textarea><br>
+                        <label class="form-label" for="keterangan">Keterangan:</label>
+                        <select name="keterangan" id="keterangan" class="form-control mb-2">
+                            <option value="<?= $pedagang['keterangan'] ?>"><?= $pedagang['keterangan'] ?></option>
+                            <option value="Aktif">Aktif</option>
+                            <option value="Tidak Aktif">Tidak Aktif</option>
+                        </select>
 
                         <button class="btn btn-primary" type="submit">Update</button>
                     </form>

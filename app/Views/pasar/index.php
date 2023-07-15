@@ -95,3 +95,6 @@
 </div>
 
 <?= $this->endSection() ?>
+<?= $this->section('script') ?>
+
+<?= $this->endSection() ?>

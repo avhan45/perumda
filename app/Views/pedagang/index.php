@@ -36,6 +36,7 @@
                         <th>Nama Pedagang</th>
                         <th>Jenis Kelamin</th>
                         <th>No. HP</th>
+                        <th>Agama</th>
                         <th>Alamat</th>
                         <th>Jenis Usaha</th>
                         <th>Aksi</th>
@@ -53,6 +54,7 @@
                             <td><?= $row->nama_pedagang ?></td>
                             <td><?= $row->jk ?></td>
                             <td><?= $row->no_hp ?></td>
+                            <td><?= $row->agama ?></td>
                             <td><?= $row->alamat ?></td>
                             <td><?= $row->jenis_usaha ?></td>
                             <td>
@@ -63,7 +65,6 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <a href="<?= base_url('/pedagang/create'); ?>">Tambah Pedagang</a>
         </div>
         <!-- /.card-body -->
     </div>
@@ -113,6 +114,14 @@
 
                         <label class="form-label" for="no_hp">No. HP:</label>
                         <input class="form-control" type="text" name="no_hp" required>
+
+                        <label class="form-label" for="agama">Agama :</label>
+                        <select class="form-control" name="agama">
+                            <option value="Islam">Islam</option>
+                            <option value="Kristen">Kristen</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Budha">Budha</option>
+                        </select>
 
                         <label class="form-label" for="alamat">Alamat:</label>
                         <textarea class="form-control" name="alamat" required></textarea>

@@ -58,6 +58,14 @@
                             <option value="Laki-laki">Laki-laki</option>
                             <option value="Perempuan">Perempuan</option>
                         </select>
+                        <label class="form-label" for="agama">Agama :</label>
+                        <select class="form-control" name="agama">
+                            <option value="<?= $pedagang['agama'] ?>"><?= $pedagang['agama'] ?></option>
+                            <option value="Islam">Islam</option>
+                            <option value="Kristen">Kristen</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Budha">Budha</option>
+                        </select>
 
                         <label class="form-label" for="no_hp">No. HP:</label>
                         <input class="form-control" type="text" name="no_hp" value="<?= $pedagang['no_hp'] ?>">
@@ -68,7 +76,10 @@
                         <label class="form-label" for="jenis_usaha">Jenis Usaha:</label>
                         <input class="form-control" type="text" name="jenis_usaha" value="<?= $pedagang['jenis_usaha'] ?>">
 
-                        <button class="btn btn-primary">Update</button>
+                        <div class="justify-content-between mt-2">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button onclick="history.back()" type="button" class="btn btn-default">Cancel</button>
+                        </div>
                     </form>
                 </div>
             </div>

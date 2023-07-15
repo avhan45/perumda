@@ -23,4 +23,8 @@ class Home extends BaseController
 
         return view('dashboard', $data);
     }
+
+    public function login()
+    {
+    }
 }
