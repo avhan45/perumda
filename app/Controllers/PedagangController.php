@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\Klasifikasi;
 use App\Models\Pasar;
 use App\Models\Pedagang;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class PedagangController extends BaseController
 {
@@ -135,5 +137,88 @@ class PedagangController extends BaseController
         $model->delete($id);
 
         return redirect()->to('/pedagang');
+    }
+
+    public function export()
+    {
+        // Mengambil data pedagang dari database
+        $model = new Pedagang();
+        $data['pedagang'] = $model->findAll();
+        // Membuat objek Spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Menambahkan judul
+        $sheet->setCellValue('A1', 'LAPORAN DATA PEDAGANG');
+        $sheet->mergeCells('A1:J1');
+        $sheet->getStyle('A1')->getFont()->setSize(16)->setBold(true);
+        $sheet->getStyle('A1:J1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:J1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+
+        $sheet->getRowDimension('1')->setRowHeight(30);
+
+        // style
+        $sheet->getStyle('A2:J2')->getFont()->setSize(12)->setBold(true);
+        $sheet->getStyle('A2:J2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A2:J2')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+
+        // Menampilkan data pedagang dalam tabel
+        $sheet->setCellValue('A2', 'NO');
+        $sheet->setCellValue('B2', 'ID_PASAR');
+        $sheet->setCellValue('C2', 'ID_KLASIFIKASI');
+        $sheet->setCellValue('D2', 'FOTO');
+        $sheet->setCellValue('E2', 'NAMA PEDAGANG');
+        $sheet->setCellValue('F2', 'JK');
+        $sheet->setCellValue('G2', 'AGAMA');
+        $sheet->setCellValue('H2', 'NO_HP');
+        $sheet->setCellValue('I2', 'ALAMAT');
+        $sheet->setCellValue('J2', 'JENIS USAHA');
+
+        $row = 3;
+        $no = 1;
+        foreach ($data['pedagang'] as $rowdata) {
+            $sheet->setCellValue('A' . $row, $no++);
+            $sheet->setCellValue('B' . $row, $rowdata['id_pasar']);
+            $sheet->setCellValue('C' . $row, $rowdata['id_klasifikasi']);
+            $sheet->setCellValue('D' . $row, $rowdata['foto']);
+            $sheet->setCellValue('E' . $row, $rowdata['nama_pedagang']);
+            $sheet->setCellValue('F' . $row, $rowdata['jk']);
+            $sheet->setCellValue('G' . $row, $rowdata['agama']);
+            $sheet->setCellValue('H' . $row, $rowdata['no_hp']);
+            $sheet->setCellValue('I' . $row, $rowdata['alamat']);
+            $sheet->setCellValue('J' . $row, $rowdata['jenis_usaha']);
+            $row++;
+        }
+
+        // Menyesuaikan panjang cell berdasarkan isi data
+        foreach (range('B', 'J') as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
+
+        // Membuat teks di tengah cell
+        $sheet->getStyle('A2:J' . $row)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A2:J' . $row)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+
+        // Menambahkan garis pada tabel
+        $sheet->getStyle('A2:J' . $row)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+
+        // Mengeksport ke format Excel
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'laporan_pedagang.xlsx';
+        $writer->save($filename);
+
+        // Mengirim file Excel sebagai respons download
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+        exit;
+    }
+
+    public function download()
+    {
+        $filename = "template_laporan_pedagang.xlsx";
+        return $filename;
     }
 }

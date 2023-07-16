@@ -24,7 +24,7 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-pasar">
                 <i class="fas fa-plus"></i> Tambah Data Pasar
             </button>
-            <a href="pasar/export/" class="btn btn-primary" target="_blank">
+            <!-- <a href="pasar/export/" class="btn btn-primary" target="_blank">
                 <i class="fas fa-down"></i> Export
             </a>
             <div class="input-group-prepend">
@@ -35,8 +35,7 @@
                     <li class="dropdown-item"><a href="#">Download Example</a></li>
                     <li class="dropdown-item"><a href="#">Upload</a></li>
                 </ul>
-                <!-- /btn-group -->
-            </div>
+            </div> -->
 
 
 

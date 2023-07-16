@@ -29,44 +29,65 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/dashboard', 'Home::index');
-$routes->get('/laporan', 'LaporanController::index');
-$routes->get('/laporan/pdf', 'LaporanController::laporanPDF');
-$routes->get('/laporan/xl', 'LaporanController::laporanXl');
 $routes->get('/', 'Home::login');
-$routes->get('/pasar', 'PasarController::index');
-$routes->get('/pasar/export', 'PasarController::export');
-$routes->get('/pasar/import', 'PasarController::importData');
-$routes->get('/pasar/create', 'PasarController::create');
-$routes->post('/pasar/store', 'PasarController::store');
-$routes->get('/pasar/edit/(:any)', 'PasarController::edit/$1');
-$routes->post('/pasar/update', 'PasarController::update');
-$routes->get('/pasar/delete/(:any)', 'PasarController::delete/$1');
+$routes->get('/dashboard', 'Home::index');
+$routes->get('/login', 'Home::login');
+$routes->get('logout', 'Home::logout');
+$routes->get('/user', 'Home::user');
+$routes->post('proses_login', 'Home::proses_login');
 
-$routes->get('blok', 'BlokController::index');
-$routes->get('/blok/create', 'BlokController::create');
-$routes->post('/blok/store', 'BlokController::store');
-$routes->get('/blok/edit/(:num)', 'BlokController::edit/$1');
-$routes->post('/blok/update', 'BlokController::update');
-$routes->get('/blok/delete/(:num)', 'BlokController::delete/$1');
+// Route Laporan
+$routes->group('laporan', function ($routes) {
+    $routes->get('/', 'LaporanController::index');
+    $routes->get('pdf', 'LaporanController::laporanPDF');
+    $routes->get('xl', 'LaporanController::laporanXl');
+});
+
+// Route Pasar
+$routes->group('pasar', function ($routes) {
+    $routes->get('/', 'PasarController::index');
+    $routes->get('export', 'PasarController::export');
+    $routes->get('import', 'PasarController::importData');
+    $routes->get('create', 'PasarController::create');
+    $routes->post('store', 'PasarController::store');
+    $routes->get('edit/(:any)', 'PasarController::edit/$1');
+    $routes->post('update', 'PasarController::update');
+    $routes->get('delete/(:any)', 'PasarController::delete/$1');
+});
+
+// Route Blok
+$routes->group('blok', function ($routes) {
+    $routes->get('/', 'BlokController::index');
+    $routes->post('store', 'BlokController::store');
+    $routes->get('edit/(:num)', 'BlokController::edit/$1');
+    $routes->post('update', 'BlokController::update');
+    $routes->get('delete/(:num)', 'BlokController::delete/$1');
+});
+
+// Route Klasifikasi
+$routes->group('klasifikasi', function ($routes) {
+    $routes->get('/', 'KlasifikasiController::index');
+    $routes->get('create', 'KlasifikasiController::create');
+    $routes->post('store', 'KlasifikasiController::store');
+    $routes->get('edit/(:num)', 'KlasifikasiController::edit/$1');
+    $routes->post('update/(:num)', 'KlasifikasiController::update/$1');
+    $routes->get('delete/(:num)', 'KlasifikasiController::delete/$1');
+});
+
+// Route Pedagang 
+$routes->group('pedagang', function ($routes) {
+    $routes->get('/', 'PedagangController::index');
+    $routes->get('create', 'PedagangController::create');
+    $routes->get('export', 'PedagangController::export');
+    $routes->post('store', 'PedagangController::store');
+    $routes->get('edit/(:num)', 'PedagangController::edit/$1');
+    $routes->post('update/(:num)', 'PedagangController::update/$1');
+    $routes->get('delete/(:num)', 'PedagangController::delete/$1');
+    $routes->get('download', 'PedagangController::download');
+});
 
 
-$routes->get('/klasifikasi', 'KlasifikasiController::index');
-$routes->get('/klasifikasi/create', 'KlasifikasiController::create');
-$routes->post('/klasifikasi/store', 'KlasifikasiController::store');
-$routes->get('/klasifikasi/edit/(:num)', 'KlasifikasiController::edit/$1');
-$routes->post('/klasifikasi/update/(:num)', 'KlasifikasiController::update/$1');
-$routes->get('/klasifikasi/delete/(:num)', 'KlasifikasiController::delete/$1');
-
-
-$routes->get('/pedagang', 'PedagangController::index');
-$routes->get('/pedagang/create', 'PedagangController::create');
-$routes->post('/pedagang/store', 'PedagangController::store');
-$routes->get('/pedagang/edit/(:num)', 'PedagangController::edit/$1');
-$routes->post('/pedagang/update/(:num)', 'PedagangController::update/$1');
-$routes->get('/pedagang/delete/(:num)', 'PedagangController::delete/$1');
-
-
+// Route Sertifikat
 $routes->group('sertifikat', function ($routes) {
     $routes->get('/', 'SertifikatController::index');
     $routes->get('create', 'SertifikatController::create');
@@ -75,6 +96,7 @@ $routes->group('sertifikat', function ($routes) {
     $routes->post('update/(:num)', 'SertifikatController::update/$1');
     $routes->get('delete/(:num)', 'SertifikatController::delete/$1');
 });
+
 
 /*
 

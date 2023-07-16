@@ -14,7 +14,7 @@
                      <img src="<?= base_url('asset') ?>/avatar.avif" class="img-circle elevation-2" alt="User Image">
                  </div>
                  <div class="info">
-                     <a href="#" class="d-block">Admin</a>
+                     <a href="#" class="d-block"><?= strtoupper(session()->get('username')); ?></a>
                  </div>
              </div>
 
@@ -94,6 +94,15 @@
                              <i class="nav-icon fas fa-th"></i>
                              <p>
                                  Laporan
+                                 <!-- <span class="right badge badge-danger">New</span> -->
+                             </p>
+                         </a>
+                     </li>
+                     <li class="nav-item">
+                         <a href="<?= base_url('/logout') ?>" class="nav-link ">
+                             <i class="nav-icon fas fa-out"></i>
+                             <p>
+                                 Logout
                                  <!-- <span class="right badge badge-danger">New</span> -->
                              </p>
                          </a>

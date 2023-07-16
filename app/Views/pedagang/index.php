@@ -19,11 +19,23 @@
     </div>
 
     <div class="card">
-        <div class="card-header">
+        <div class="card-header justify-content-between" style="display: flex;">
             <!-- <a href="/pedagang/create/" class="btn btn-primary"> <i class="fas fa-plus"></i> Tambah Data Pedagang </a> -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-pedagang">
                 <i class="fas fa-plus"></i> Tambah Data Pedagang
             </button>
+            <a href="pedagang/export/" class="btn btn-primary" target="_blank">
+                <i class="fas fa-down"></i> Export
+            </a>
+            <div class="input-group-prepend">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    Import
+                </button>
+                <ul class="dropdown-menu" style="">
+                    <li class="dropdown-item"><a href="pedagang/download/">Download Example</a></li>
+                    <li class="dropdown-item"><a href="#">Upload</a></li>
+                </ul>
+            </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -80,6 +92,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+
             </div>
             <form action="pedagang/store" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
